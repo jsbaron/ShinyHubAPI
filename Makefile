@@ -3,6 +3,7 @@ CFLAGS=-std=c++11 -stdlib=libc++ -lcpprest -lssl -lcrypto -lboost_system -lboost
 EXEC=bing_request
 MAIN=bing_request.cpp
 OUTPUT=results.html
+DOCKER_SRC=/root/build/app
 
 
 all: build run open
@@ -10,18 +11,27 @@ all: build run open
 print:
 	./targets.sh
 
+docker_leak_check:
+	docker exec -it valgrind valgrind --leak-check=full $(DOCKER_SRC)/$(EXEC)
+
 docker_build:
 	sudo docker build --rm --tag valgrind .
 
-docker_run:
+docker_run_container:
 	sudo docker run --hostname valgrind --name valgrind -v app:/root/build -d -p 22021:22 valgrind
+
+docker_run:
+	docker exec -it valgrind $(DOCKER_SRC)/$(EXEC)
+
+docker_compile:
+	docker exec -it valgrind g++ -o $(DOCKER_SRC)/$(EXEC) $(DOCKER_SRC)/$(MAIN) -lboost_system -lcrypto -lssl -lcpprest -std=c++11
 
 docker_copy:
 	docker cp app valgrind:root/build
 
 open:
 	open -a "Google Chrome" app/$(OUTPUT)
-	
+
 run:
 	app/$(EXEC)
 

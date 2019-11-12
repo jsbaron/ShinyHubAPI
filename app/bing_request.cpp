@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 
     // Open stream to output file.
     pplx::task<void> requestTask = fstream::open_ostream(
-        U("app/results.html")).then([=](ostream outFile) {
+        U("results.html")).then([=](ostream outFile) {
         *fileStream = outFile;
 
         // Create http_client to send the request.
@@ -45,8 +45,5 @@ int main(int argc, char* argv[])
     catch (const std::exception &e) {
         printf("Error exception:%s\n", e.what());
     }
-
-    void* leak = new int(2);
-
     return 0;
 }

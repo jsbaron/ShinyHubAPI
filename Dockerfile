@@ -19,12 +19,12 @@ VOLUME /root/build
 RUN apt-get -y install build-essential
 
 # http://packages.ubuntu.com/de/trusty/valgrind
-RUN apt-get -y install valgrind \
-    libmodbus5 liblog4cxx10v5 \
-    libboost-regex1.58.0 libboost-system1.58.0 \
-    libboost-program-options1.58.0 libboost-thread1.58.0 \
-    libboost-filesystem1.58.0 libpthread-workqueue0 \
-    libssl1.0.0 libcpprest-dev autotools-dev
+RUN apt-get -y install valgrind
+
+# cpp_build dependencies
+RUN apt-get -y install g++ git libboost-atomic-dev libboost-thread-dev libboost-system-dev libboost-date-time-dev libboost-regex-dev libboost-filesystem-dev libboost-random-dev libboost-chrono-dev libboost-serialization-dev libwebsocketpp-dev openssl libssl-dev ninja-build
+
+RUN apt-get -y install libcpprest-dev
 
 # launch
 CMD /usr/sbin/sshd -D
