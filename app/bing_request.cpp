@@ -9,7 +9,7 @@ using namespace concurrency::streams;       // Asynchronous streams
 
 int main(int argc, char* argv[]) {
 
-    if (argc < 3) {
+    if (argc < 2) {
         printf("Must include query in program call.\n");
         printf("Example: ./bing_request ferns\n");
         return -1;
