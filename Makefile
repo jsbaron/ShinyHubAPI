@@ -30,10 +30,10 @@ docker_copy:
 	docker cp app valgrind:root/build
 
 open:
-	open -a "Google Chrome" app/$(OUTPUT)
+	open -a "Google Chrome" $(OUTPUT)
 
 run:
-	app/$(EXEC)
+	app/$(EXEC) ferns
 
 build: app/$(MAIN)
 	$(CC) -o app/$(EXEC) $(CFLAGS) app/$(MAIN)

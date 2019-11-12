@@ -7,8 +7,7 @@ using namespace web::http;                  // Common HTTP functionality
 using namespace web::http::client;          // HTTP client features
 using namespace concurrency::streams;       // Asynchronous streams
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
     auto fileStream = std::make_shared<ostream>();
 
     // Open stream to output file.
@@ -21,7 +20,11 @@ int main(int argc, char* argv[])
 
         // Build request URI and start the request.
         uri_builder builder(U("/search"));
-        builder.append_query(U("q"), U("cpprestsdk github"));
+        std::string query = argv[1];
+        for (int i = 2; i < argc; i++) {
+            query += " " + std::string(argv[i]);
+        }
+        builder.append_query(U("q"), U(query));
         return client.request(methods::GET, builder.to_string());
     })
 
