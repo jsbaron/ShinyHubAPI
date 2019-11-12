@@ -39,4 +39,4 @@ build: app/$(MAIN)
 	$(CC) -o app/$(EXEC) $(CFLAGS) app/$(MAIN)
 
 clean:
-	rm -rf app/$(EXEC) app/$(OUTPUT) app/a.out
+	rm -rf app/$(EXEC) $(OUTPUT)

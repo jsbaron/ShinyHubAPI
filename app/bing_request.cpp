@@ -8,6 +8,13 @@ using namespace web::http::client;          // HTTP client features
 using namespace concurrency::streams;       // Asynchronous streams
 
 int main(int argc, char* argv[]) {
+
+    if (argc < 3) {
+        printf("Must include query in program call.\n");
+        printf("Example: ./bing_request ferns\n");
+        return -1;
+    }
+
     auto fileStream = std::make_shared<ostream>();
 
     // Open stream to output file.
